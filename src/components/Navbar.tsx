@@ -1,9 +1,10 @@
 import { Link, useLocation } from "react-router-dom";
 import { Search, ShoppingBag, Heart, Menu, X, User } from "lucide-react";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { useCartStore } from "@/store/useCartStore";
 import { useWishlistStore } from "@/store/useWishlistStore";
 import { motion, AnimatePresence } from "framer-motion";
+import { SearchRecommendations } from "@/components/SearchRecommendations";
 
 const navLinks = [
   { name: "Home", path: "/" },
@@ -17,31 +18,30 @@ export const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [showRecs, setShowRecs] = useState(false);
   const location = useLocation();
   const { toggleCart, totalItems } = useCartStore();
   const wishlistCount = useWishlistStore((s) => s.items.length);
   const cartCount = totalItems();
 
+  const closeRecs = useCallback(() => setShowRecs(false), []);
+
   return (
     <>
       <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-xl">
-        {/* Top bar */}
         <div className="bg-navy text-navy-foreground text-center text-xs py-2 font-body tracking-wide">
           Free shipping on orders over $75 · Use code <span className="font-semibold">TREND20</span> for 20% off
         </div>
 
         <div className="container flex items-center justify-between h-16 gap-4">
-          {/* Mobile menu */}
           <button onClick={() => setMobileOpen(!mobileOpen)} className="lg:hidden text-foreground">
             {mobileOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
 
-          {/* Logo */}
           <Link to="/" className="font-display text-2xl font-bold tracking-tight text-foreground">
             Trend<span className="text-primary">Hive</span>
           </Link>
 
-          {/* Desktop nav */}
           <nav className="hidden lg:flex items-center gap-8">
             {navLinks.map((link) => (
               <Link
@@ -56,9 +56,8 @@ export const Navbar = () => {
             ))}
           </nav>
 
-          {/* Actions */}
           <div className="flex items-center gap-3">
-            <button onClick={() => setSearchOpen(!searchOpen)} className="p-2 text-foreground hover:text-primary transition-colors">
+            <button onClick={() => { setSearchOpen(!searchOpen); setShowRecs(false); }} className="p-2 text-foreground hover:text-primary transition-colors">
               <Search size={20} />
             </button>
             <Link to="/wishlist" className="p-2 text-foreground hover:text-primary transition-colors relative">
@@ -83,14 +82,13 @@ export const Navbar = () => {
           </div>
         </div>
 
-        {/* Search bar */}
         <AnimatePresence>
           {searchOpen && (
             <motion.div
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              className="border-t border-border overflow-hidden"
+              className="border-t border-border overflow-visible"
             >
               <div className="container py-4">
                 <div className="relative">
@@ -98,10 +96,12 @@ export const Navbar = () => {
                   <input
                     autoFocus
                     value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
+                    onChange={(e) => { setSearchQuery(e.target.value); setShowRecs(true); }}
+                    onFocus={() => setShowRecs(true)}
                     placeholder="Search for products, brands, categories..."
                     className="w-full pl-12 pr-4 py-3 bg-secondary rounded-lg text-sm font-body text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
                   />
+                  <SearchRecommendations query={searchQuery} isOpen={showRecs} onClose={closeRecs} />
                 </div>
               </div>
             </motion.div>
@@ -109,7 +109,6 @@ export const Navbar = () => {
         </AnimatePresence>
       </header>
 
-      {/* Mobile nav */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
@@ -120,12 +119,8 @@ export const Navbar = () => {
           >
             <div className="pt-32 px-8 space-y-6">
               {navLinks.map((link) => (
-                <Link
-                  key={link.path}
-                  to={link.path}
-                  onClick={() => setMobileOpen(false)}
-                  className="block text-2xl font-display font-semibold text-foreground hover:text-primary transition-colors"
-                >
+                <Link key={link.path} to={link.path} onClick={() => setMobileOpen(false)}
+                  className="block text-2xl font-display font-semibold text-foreground hover:text-primary transition-colors">
                   {link.name}
                 </Link>
               ))}
