@@ -71,13 +71,13 @@ const ProductDetailPage = () => {
       </div>
 
       <div className="grid md:grid-cols-2 gap-12">
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+        <div>
           <div className="aspect-square rounded-xl overflow-hidden bg-secondary">
             <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
           </div>
-        </motion.div>
+        </div>
 
-        <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.15 }} className="space-y-6">
+        <div className="space-y-6">
           <div>
             <p className="text-sm text-muted-foreground font-body uppercase tracking-wider">{product.brand}</p>
             <h1 className="font-display text-3xl font-bold text-foreground mt-1">{product.name}</h1>
@@ -155,7 +155,7 @@ const ProductDetailPage = () => {
               </div>
             ))}
           </div>
-        </motion.div>
+        </div>
       </div>
 
       {/* Reviews Section */}

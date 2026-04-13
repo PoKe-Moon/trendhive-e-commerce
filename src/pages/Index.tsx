@@ -1,6 +1,5 @@
 import { lazy, Suspense } from "react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { ProductCard } from "@/components/ProductCard";
 import { CategoryCard } from "@/components/CategoryCard";
@@ -15,7 +14,7 @@ const HeroSection = () => (
     </Suspense>
     <div className="container py-16 md:py-28 relative z-10">
       <div className="grid md:grid-cols-2 gap-12 items-center">
-        <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6 }}>
+        <div>
           <span className="inline-block bg-primary/10 text-primary text-xs font-bold px-3 py-1.5 rounded-full font-body uppercase tracking-wider mb-6">
             New Season Collection
           </span>
@@ -34,13 +33,13 @@ const HeroSection = () => (
               Explore Fashion
             </Link>
           </div>
-        </motion.div>
-        <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6, delay: 0.2 }} className="relative hidden md:block">
+        </div>
+        <div className="relative hidden md:block">
           <div className="grid grid-cols-2 gap-4">
             <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=400" alt="Beauty" className="rounded-xl aspect-[3/4] object-cover w-full" />
             <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400" alt="Fashion" className="rounded-xl aspect-[3/4] object-cover w-full mt-8" />
           </div>
-        </motion.div>
+        </div>
       </div>
     </div>
   </section>
