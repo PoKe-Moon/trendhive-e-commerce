@@ -1,19 +1,19 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { Eye, EyeOff } from "lucide-react";
-import { motion } from "framer-motion";
+import { Link, useNavigate } from "react-router-dom";
+import { Eye, EyeOff, ArrowLeft } from "lucide-react";
 
 const LoginPage = () => {
   const [isSignUp, setIsSignUp] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <div className="min-h-[80vh] flex items-center justify-center py-12">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="w-full max-w-md mx-4"
-      >
+      <div className="w-full max-w-md mx-4">
+        <button onClick={() => navigate(-1)} className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground font-body transition-colors mb-6">
+          <ArrowLeft size={16} /> Back
+        </button>
+
         <div className="text-center mb-8">
           <Link to="/" className="font-display text-3xl font-bold">
             Trend<span className="text-primary">Hive</span>
@@ -72,7 +72,7 @@ const LoginPage = () => {
             </button>
           </p>
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 };

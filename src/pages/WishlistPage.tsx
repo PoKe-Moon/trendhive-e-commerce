@@ -1,15 +1,20 @@
 import { products } from "@/data/products";
 import { useWishlistStore } from "@/store/useWishlistStore";
 import { ProductCard } from "@/components/ProductCard";
-import { Heart } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Heart, ArrowLeft } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 
 const WishlistPage = () => {
   const { items } = useWishlistStore();
+  const navigate = useNavigate();
   const wishlistProducts = products.filter(p => items.includes(p.id));
 
   return (
     <div className="container py-8">
+      <button onClick={() => navigate(-1)} className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground font-body transition-colors mb-6">
+        <ArrowLeft size={16} /> Back
+      </button>
+
       <h1 className="font-display text-3xl font-bold text-foreground mb-2">My Wishlist</h1>
       <p className="text-muted-foreground font-body mb-8">{wishlistProducts.length} items saved</p>
 

@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { Product } from "@/data/products";
 import { useCartStore } from "@/store/useCartStore";
 import { useWishlistStore } from "@/store/useWishlistStore";
-import { motion } from "framer-motion";
 
 interface ProductCardProps {
   product: Product;
@@ -19,12 +18,7 @@ export const ProductCard = ({ product, index = 0 }: ProductCardProps) => {
     : null;
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.05, duration: 0.4 }}
-      className="group relative"
-    >
+    <div className="group relative">
       <Link to={`/product/${product.id}`} className="block">
         <div className="relative aspect-[3/4] overflow-hidden rounded-lg bg-secondary">
           <img
@@ -46,7 +40,6 @@ export const ProductCard = ({ product, index = 0 }: ProductCardProps) => {
         </div>
       </Link>
 
-      {/* Wishlist */}
       <button
         onClick={() => toggleItem(product.id)}
         className="absolute top-3 right-3 p-2 rounded-full bg-background/80 backdrop-blur-sm hover:bg-background transition-colors"
@@ -54,7 +47,6 @@ export const ProductCard = ({ product, index = 0 }: ProductCardProps) => {
         <Heart size={16} className={wishlisted ? "fill-accent text-accent" : "text-foreground"} />
       </button>
 
-      {/* Info */}
       <div className="mt-3 space-y-1">
         <p className="text-xs text-muted-foreground font-body uppercase tracking-wider">{product.brand}</p>
         <Link to={`/product/${product.id}`}>
@@ -81,6 +73,6 @@ export const ProductCard = ({ product, index = 0 }: ProductCardProps) => {
           </button>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
