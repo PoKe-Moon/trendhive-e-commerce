@@ -4,7 +4,7 @@ import { useCartStore } from "@/store/useCartStore";
 import { useWishlistStore } from "@/store/useWishlistStore";
 import { Heart, ShoppingBag, Star, Truck, RotateCcw, Shield, ArrowLeft, Share2, Zap, CheckCircle } from "lucide-react";
 import { useState } from "react";
-import { motion } from "framer-motion";
+
 import { ProductCard } from "@/components/ProductCard";
 import { ProductReviews } from "@/components/ProductReviews";
 import { toast } from "sonner";
