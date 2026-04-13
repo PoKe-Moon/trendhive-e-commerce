@@ -1,10 +1,12 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { products, categories } from "@/data/products";
 import { ProductCard } from "@/components/ProductCard";
 import { useState } from "react";
+import { ArrowLeft } from "lucide-react";
 
 const CategoryPage = () => {
   const { slug } = useParams();
+  const navigate = useNavigate();
   const category = categories.find(c => c.slug === slug);
   const categoryProducts = products.filter(p => p.category === slug);
   const [sortBy, setSortBy] = useState("featured");
@@ -18,10 +20,15 @@ const CategoryPage = () => {
 
   return (
     <div className="container py-8">
-      <div className="flex items-center gap-2 text-sm text-muted-foreground font-body mb-6">
-        <Link to="/" className="hover:text-primary">Home</Link>
-        <span>/</span>
-        <span className="text-foreground">{category?.name || slug}</span>
+      <div className="flex items-center gap-4 mb-6">
+        <button onClick={() => navigate(-1)} className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground font-body transition-colors">
+          <ArrowLeft size={16} /> Back
+        </button>
+        <div className="flex items-center gap-2 text-sm text-muted-foreground font-body">
+          <Link to="/" className="hover:text-primary">Home</Link>
+          <span>/</span>
+          <span className="text-foreground">{category?.name || slug}</span>
+        </div>
       </div>
 
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
