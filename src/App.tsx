@@ -8,6 +8,7 @@ import { Footer } from "@/components/Footer";
 import { CartDrawer } from "@/components/CartDrawer";
 import { useAdminStore } from "@/store/useAdminStore";
 import Index from "./pages/Index";
+import CheckoutPage from "./pages/CheckoutPage";
 import CategoryPage from "./pages/CategoryPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import LoginPage from "./pages/LoginPage";
@@ -44,6 +45,7 @@ const App = () => (
                   <Route path="/" element={<Index />} />
                   <Route path="/category/:slug" element={<CategoryPage />} />
                   <Route path="/product/:id" element={<ProductDetailPage />} />
+                  <Route path="/checkout" element={<CheckoutPage />} />
                   <Route path="/login" element={<LoginPage />} />
                   <Route path="/wishlist" element={<WishlistPage />} />
                   <Route path="*" element={<NotFound />} />
