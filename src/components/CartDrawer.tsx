@@ -78,9 +78,9 @@ export const CartDrawer = () => {
                   <span className="text-muted-foreground font-body">Subtotal</span>
                   <span className="text-xl font-semibold font-display">${totalPrice().toFixed(2)}</span>
                 </div>
-                <button className="w-full py-3 bg-primary text-primary-foreground rounded-lg font-body font-medium hover:opacity-90 transition-opacity">
+                <Link to="/checkout" onClick={() => setCartOpen(false)} className="block w-full py-3 bg-primary text-primary-foreground rounded-lg font-body font-medium hover:opacity-90 transition-opacity text-center">
                   Checkout
-                </button>
+                </Link>
                 <button onClick={clearCart} className="w-full text-sm text-muted-foreground hover:text-foreground text-center">
                   Clear Cart
                 </button>
